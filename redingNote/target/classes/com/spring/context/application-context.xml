@@ -9,4 +9,10 @@
 		  class="com.spring.dao.MemberDAOImpl"
 		  p:sqlSession-ref="sqlSession"
 		  />
+		  
+	<!-- service -->
+	<bean id="memberService"
+		  class="com.spring.service.MemberServiceImpl"
+		  p:memberDAO-ref="memberDAO"
+		  />
 </beans>
