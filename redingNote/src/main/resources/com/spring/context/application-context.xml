@@ -5,5 +5,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- repository -->
-	
+	<bean id="memberDAO"
+		  class="com.spring.dao.MemberDAOImpl"
+		  p:sqlSession-ref="sqlSession"
+		  />
 </beans>
