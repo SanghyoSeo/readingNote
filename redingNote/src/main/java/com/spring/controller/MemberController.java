@@ -51,13 +51,14 @@ public class MemberController {
 	}
 
 	@GetMapping("/profile")
-	public void profile() {
+	public void profile(String id) {
 		
+		System.out.println(id);
 	}
 
-	@GetMapping(value = "/remove")
+	@GetMapping("/remove")
 	public String remove() throws Exception {
-		String url = "src/main/webapp/WEB-INF/views/commons/remove_success";
+		String url = "/commons/remove_success";
 		
 //		MemberVO member = memberService.detail(id);
 //		

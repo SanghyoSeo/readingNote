@@ -20,7 +20,7 @@
 	width: 400px;
 	height: 240px;
 	margin: 40px;
-	text-align: center;
+	display: inline-block;
 }
 #login {
 	text-align: center;
@@ -44,12 +44,16 @@
 	cursor: pointer;
 	background: rgb(211, 84, 0);
 }
+.bottom_btn {
+	margin-right: 10px;
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
 	<div id="title">리딩노트</div>
 
-	<div style="">
+	<div style="text-align: center;">
 	<div id="loginbox">
 		<form method="post" id="login">
 			<input type="text" name="id" id="id" placeholder="아이디"><br> 
@@ -57,6 +61,13 @@
 			<input type="submit" value="로그인" id="login_btn">
 		</form>
 	</div>
+	</div>
+	<div style="text-align: center;">
+		<span class="bottom_btn" onclick="">비밀번호 찾기</span>
+		<span class="bottom_btn">|</span>
+		<span class="bottom_btn" onclick="">아이디 찾기</span>
+		<span class="bottom_btn">|</span>
+		<span class="bottom_btn" onclick="">회원가입</span>
 	</div>
 
 <script>
