@@ -58,11 +58,10 @@
 		where id = #{id}
 	</update>
 	
-	<update id="deleteMember" parameterType="member">
+	<update id="deleteMember" parameterType="str">
 		update member
 		set
 		authority = 'ROLE_DELETE',
-		quitDate = #{quitDate}
 		where id = #{id}
 	</update>
 </mapper>

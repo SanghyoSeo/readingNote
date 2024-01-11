@@ -36,8 +36,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void remove(MemberVO member) throws SQLException {
-		memberDAO.deleteMember(member);
+	public void remove(String id) throws SQLException {
+		memberDAO.deleteMember(id);
 		
 	}
 

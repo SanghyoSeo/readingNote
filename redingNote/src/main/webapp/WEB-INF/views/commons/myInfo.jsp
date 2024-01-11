@@ -16,7 +16,7 @@ body {
 	height: 100%;
 }
 .side_menu {
-	background: rgb(211, 84, 0);
+	background: rgb(52, 152, 219);
 	float: left;
 	width: 230px;
 	height: 100vh;
@@ -42,7 +42,7 @@ body {
 }
 .iframe_container {
 	aspect-ratio: 16 / 9;
-	width: 80%
+	width: 90%
 }
 iframe {
 	display: block;
@@ -59,7 +59,7 @@ iframe {
 			<div class="title" onclick="">리딩노트</div>
 			<div class="menu" onclick="changeIframeUrl('/commons/profile?id=${loginUser}')">나의 프로필</div>
 			<div class="menu" onclick="">나의 리뷰</div>
-			<div class="menu" onclick="changeIframeUrl('/commons/profile')">회원 탈퇴</div>
+			<div class="menu" onclick="changeIframeUrl('https://ko.wikipedia.org/wiki/')">회원 탈퇴</div>
 		</nav>
 
 		<!-- 정보 표시 -->

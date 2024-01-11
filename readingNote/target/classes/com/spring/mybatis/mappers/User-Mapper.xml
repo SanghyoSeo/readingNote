@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="User-Mapper">
+	<select id="selectMemberList" resultType="user">
+		select * from member
+	</select>
+	
+	<select id="selectMyReviewList" resultType="user">
+		select m.id, b.book_title, r.review_contents, r.review_date
+		from member m, book_review r, book b
+		where m.id = #{id} and r.book_review_writer_id = m.id and r.review_book_id = b.book_id
+	</select>
+	
+	<select id="selectMyReviewListCount" resultType="int">
+		select count(*)
+		from member m, book_review r, book b
+		where m.id = #{id} and r.book_review_writer_id = m.id and r.review_book_id = b.book_id
+	</select>
+	
+	<select id="selectMemberById" resultType="user">
+		select * from member
+		where id = #{id}
+	</select>
+	
+	<select id="selectSearchId" resultType="str">
+		select id
+		from member
+		where email = #{email}
+	</select>
+	
+	<select id="selectSearchPwd" resultType="str">
+		select pwd
+		from member
+		where id = #{id} and name = #{name} and email = #{email}
+	</select>
+	
+	<update id="updatePwd" parameterType="user">
+		update member
+		set
+		pwd = #{pwd}
+		where id = #{id}
+	</update>
+	
+	<update id="updateName" parameterType="user">
+		update member
+		set
+		name = #{name}
+		where id = #{id}
+	</update>
+	
+	<update id="updateEmail" parameterType="user">
+		update member
+		set
+		email = #{email}
+		where id = #{id}
+	</update>
+	
+	<update id="deleteMember" parameterType="str">
+		update member
+		set
+		authority = 'ROLE_DELETE',
+		where id = #{id}
+	</update>
+</mapper>

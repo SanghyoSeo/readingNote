@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.spring.dto.MemberVO;
 import com.spring.service.MemberService;
@@ -24,10 +25,6 @@ public class MemberController {
 
 	@GetMapping("/commons/myInfo")
 	public void myInfo() {
-	}
-
-	@GetMapping("/admin/main")
-	public void adminMain() {
 	}
 
 	@PostMapping("/login")
@@ -50,13 +47,14 @@ public class MemberController {
 		return url;
 	}
 
-	@GetMapping("/profile")
-	public void profile(String id) {
+	@GetMapping("/commons/profile")
+	public String profile(String id) {
+		String url = "/commons/profile";
 		
-		System.out.println(id);
+		return url;
 	}
 
-	@GetMapping("/remove")
+	@GetMapping("/commons/remove")
 	public String remove() throws Exception {
 		String url = "/commons/remove_success";
 		

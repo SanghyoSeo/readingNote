@@ -125,7 +125,7 @@ public class TestMemberDAOImpl {
 		Assert.assertNotEquals(sqlDate, targetMember.getQuitDate());
 		
 		targetMember.setQuitDate(sqlDate);
-		memberDAO.deleteMember(targetMember);
+//		memberDAO.deleteMember(targetMember);
 		
 		MemberVO getMember = memberDAO.selectMemberById(testId);
 		
