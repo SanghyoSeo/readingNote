@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -32,7 +33,7 @@ public class UserController {
 
 	@PostMapping("/login")
 	public String login(String id, String pwd, HttpSession session) throws SQLException {
-		String url = "redirect:/commons/profile";
+		String url = "redirect:/commons/profile?id=" + id;
 
 		UserVO member = memberService.detail(id);
 
@@ -46,13 +47,32 @@ public class UserController {
 		} else {
 			url = "redirect:/login?error=1";
 		}
+		
+		if (member.getId().equals("운영자")) {
+			url = "redirect:/member/join";
+		}
 
+		return url;
+	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		String url = "/logout_success";
+		
+		session.invalidate();
+		
 		return url;
 	}
 
 	@GetMapping("/commons/profile")
-	public String profile(String id) {
+	public String profile(String id, HttpSession session, Model model) throws SQLException {
 		String url = "/commons/profile";
+		
+//		String id = (String) session.getAttribute(id);
+		
+		
+		UserVO member = memberService.detail(id);
+		
 		
 		return url;
 	}
