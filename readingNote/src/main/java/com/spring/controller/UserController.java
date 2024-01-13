@@ -9,7 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.dao.UserDAO;
 import com.spring.dto.UserVO;
 import com.spring.service.UserService;
 
@@ -18,21 +21,29 @@ public class UserController {
 
 	@Autowired
 	private UserService memberService;
+	
+	@Autowired
+	private UserDAO memberDAO;
 
-	@GetMapping("/login")
-	public void login() {
+	@GetMapping("/commons/login")
+	public ModelAndView login(ModelAndView mnv) {
+		String url = "/commons/login";
+		
+		mnv.setViewName(url);
+		
+		return mnv;
 	}
 
 	@GetMapping("/commons/myInfo")
 	public void myInfo() {
 	}
 
-	@GetMapping("/admin/main")
-	public void adminMain() {
-	}
-
-	@PostMapping("/login")
-	public String login(String id, String pwd, HttpSession session) throws SQLException {
+	@PostMapping("/commons/login")
+	public ModelAndView login(String id, String pwd, 
+						HttpSession session,
+						RedirectAttributes rttr,
+						ModelAndView mnv) throws Exception {
+		
 		String url = "redirect:/commons/profile?id=" + id;
 
 		UserVO member = memberService.detail(id);
@@ -52,10 +63,10 @@ public class UserController {
 			url = "redirect:/member/join";
 		}
 
-		return url;
+		return null;
 	}
 	
-	@GetMapping("/logout")
+	@GetMapping("/commons/logout")
 	public String logout(HttpSession session) {
 		String url = "/logout_success";
 		
