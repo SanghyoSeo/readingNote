@@ -50,7 +50,8 @@ input {
 	font-size: 16px;
 }
 .remove {
-	
+	text-decoration: none;
+	color: black;
 }
 .remove:hover {
 	cursor: pointer;
@@ -80,20 +81,16 @@ input {
 				<input name="email" placeholder="이메일: ${loginUser.email}" value="">
 				<span class="btn" onclick="goPage('emailForm')" >이메일 변경</span>
 			</form>
-			<hr>
-			<div class="info_box">
-				<span class="info">010-1234-5678</span>
-				<span class="btn">전화번호 변경</span>
-			</div>
 		</div>
-			<div class="remove">회원탈퇴 ></div>
+			<a href="javascript:OpenWindow('remove', '회원탈퇴', 800, 700)" class="remove">회원탈퇴 ></a>
 	</div>	
 <script>
 function goPage(form) {
 	let newForm = document.getElementById(form);
-	
+
 	newForm.submit();
 }
 </script>
+<script src="<%=request.getContextPath() %>/resources/js/common.js"></script>
 </body>
 </html>

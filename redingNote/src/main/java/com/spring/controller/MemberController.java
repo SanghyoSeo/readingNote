@@ -48,7 +48,7 @@ public class MemberController {
 			
 			MemberVO member = memberDAO.selectMemberById(id);
 			session.setAttribute("loginUser", member);
-			session.setMaxInactiveInterval(30 * 60);
+			session.setMaxInactiveInterval(5 * 60 * 60);
 			
 		} catch (NotFoundIdentityException | InvalidPasswordException e) {
 			url = "redirect:/commons/login";
@@ -88,10 +88,10 @@ public class MemberController {
 		
 		session.setAttribute("loginUser", member);
 		
-		System.out.println();
-		System.out.println(id);
-		System.out.println(name);
-		System.out.println();
+//		System.out.println();
+//		System.out.println(id);
+//		System.out.println(name);
+//		System.out.println();
 		
 		String url = "/commons/success_modify_name";
 		mnv.setViewName(url);
@@ -120,14 +120,29 @@ public class MemberController {
 	}
 
 	@GetMapping("/commons/remove")
-	public String remove() throws Exception {
-		String url = "/commons/remove_success";
+	public ModelAndView remove(HttpSession session, ModelAndView mnv) throws Exception {
+		String url = "/commons/remove";
 		
-//		MemberVO member = memberService.detail(id);
-//		
-//		memberService.remove(member);
-//		
-		return url;
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	
+	@PostMapping("/commons/remove")
+	public ModelAndView remove(String pwd, HttpSession session, ModelAndView mnv) throws Exception {
+		String url = "redirect:/commons/remove?error=1";
+		
+		String id = (String) session.getAttribute("userLogin");
+		MemberVO member = memberDAO.selectMemberById(id);
+		
+		if (member.getPwd().equals(pwd)) {
+			url = "/commons/remove_success";
+			memberService.remove(member);
+		}
+		
+		mnv.setViewName(url);
+		
+		return mnv;
 	}
 
 }
