@@ -36,10 +36,8 @@ public class MemberController {
 	}
 
 	@PostMapping("/commons/login")
-	public ModelAndView login(String id, String pwd, 
-							  HttpSession session,
-							  RedirectAttributes rttr,
-							  ModelAndView mnv) throws SQLException {
+	public ModelAndView login(String id, String pwd, HttpSession session,
+							  RedirectAttributes rttr, ModelAndView mnv) throws SQLException {
 		
 		String url = "redirect:/commons/profile";
 
@@ -47,6 +45,12 @@ public class MemberController {
 			memberService.login(id, pwd);
 			
 			MemberVO member = memberDAO.selectMemberById(id);
+			
+			if (member.getAuthority().equals("탈퇴")) {
+				url = "redirect:/commons/login";
+				System.out.println(url);
+			}
+			
 			session.setAttribute("loginUser", member);
 			session.setMaxInactiveInterval(5 * 60 * 60);
 			
@@ -78,6 +82,56 @@ public class MemberController {
 		
 		return mnv;
 	}
+
+	@GetMapping("/commons/checkPwd")
+	public ModelAndView checkPwd(ModelAndView mnv) {
+		String url = "/commons/check_pwd";
+		
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	
+	@PostMapping("/commons/checkPwd")
+	public ModelAndView checkPwd(String id, String pwd, ModelAndView mnv, HttpSession session) throws SQLException {
+		String url;
+		
+		MemberVO member = memberService.detail(id);
+		
+		if (pwd.equals(member.getPwd())) {
+			url = "redirect:/commons/modifyPwd";
+		} else {
+			url = "commons/checkPwd?error=1";
+		}
+				
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	
+	@GetMapping("/commons/modifyPwd")
+	public ModelAndView modifyPwd(ModelAndView mnv) {
+		String url = "/commons/modify_pwd";
+		
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	
+	@PostMapping("/commons/modifyPwd")
+	public ModelAndView modifyPwd(String id, String pwd, ModelAndView mnv, HttpSession session) throws SQLException {
+		String url = "/commons/success_modify_pwd";
+		
+		MemberVO member = memberService.detail(id);
+		member.setPwd(pwd);
+		memberService.modifyPwd(member);
+		
+		session.setAttribute("loginUser", member);
+		
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
 	
 	@PostMapping("/commons/modifyName")
 	public ModelAndView modifyName(String id, String name, ModelAndView mnv, HttpSession session) throws SQLException {
@@ -87,11 +141,6 @@ public class MemberController {
 		memberService.modifyName(member);
 		
 		session.setAttribute("loginUser", member);
-		
-//		System.out.println();
-//		System.out.println(id);
-//		System.out.println(name);
-//		System.out.println();
 		
 		String url = "/commons/success_modify_name";
 		mnv.setViewName(url);
@@ -129,16 +178,36 @@ public class MemberController {
 	}
 	
 	@PostMapping("/commons/remove")
-	public ModelAndView remove(String pwd, HttpSession session, ModelAndView mnv) throws Exception {
-		String url = "redirect:/commons/remove?error=1";
+	public ModelAndView remove(String id, String pwd, HttpSession session, ModelAndView mnv) throws Exception {
+		String url;
 		
-		String id = (String) session.getAttribute("userLogin");
 		MemberVO member = memberDAO.selectMemberById(id);
 		
-		if (member.getPwd().equals(pwd)) {
-			url = "/commons/remove_success";
-			memberService.remove(member);
+		
+		if (member != null && member.getId().equals(id)) {
+			if (member.getPwd().equals(pwd)) {
+				System.out.println();
+				System.out.println("아이디 : " + member.getId());
+				System.out.println("비밀번호 : " + pwd);
+				System.out.println();
+				url = "/commons/remove_success";
+				session.invalidate();
+				memberService.remove(member);
+			} else {
+				url = "redirect:/commons/remove?error=2";
+			}
+		} else {
+			url = "redirect:/commons/remove?error=1";
 		}
+		
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	
+	@GetMapping("/commons/myReviewList")
+	public ModelAndView remove(ModelAndView mnv) throws Exception {
+		String url = "/commons/myReviewList";
 		
 		mnv.setViewName(url);
 		

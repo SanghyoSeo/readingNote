@@ -1,6 +1,5 @@
 package com.spring.dao;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.junit.Assert;
@@ -107,30 +106,40 @@ public class TestMemberDAOImpl {
 	@Rollback
 	public void testDeleteMember() throws Exception {
 		String testId = "qwer";
-		Date today = new Date();
+		String testAuth = "탈퇴";
+		MemberVO targetMember = memberDAO.selectMemberById(testId);
 		
+		Assert.assertEquals(testId, targetMember.getId());
+		
+		memberDAO.deleteMember(targetMember);
+		
+		MemberVO deleteMember = memberDAO.selectMemberById(testId);
+		
+		Assert.assertEquals(testAuth, deleteMember.getAuthority());
+		
+//		Date today = new Date();
 //		SimpleDateFormat format = new SimpleDateFormat("yy/MM/dd");
 //		String todayStr = format.format(today);
 //		java.sql.Date sqlDate = java.sql.Date.valueOf(todayStr);
 		
-		long milliSeconds = today.getTime();
-	    java.sql.Date sqlDate = new java.sql.Date(milliSeconds);
-		
-		MemberVO targetMember = memberDAO.selectMemberById(testId);
-		
-		System.out.println("탈퇴일 : " + sqlDate);
-		System.out.println("get 탈퇴일 : " + targetMember.getQuitDate());
-		
-		Assert.assertNotNull(targetMember);
-		Assert.assertNotEquals(sqlDate, targetMember.getQuitDate());
-		
-		targetMember.setQuitDate(sqlDate);
+//		long milliSeconds = today.getTime();
+//	    java.sql.Date sqlDate = new java.sql.Date(milliSeconds);
+//		
+//		MemberVO targetMember = memberDAO.selectMemberById(testId);
+//		
+//		System.out.println("탈퇴일 : " + sqlDate);
+//		System.out.println("get 탈퇴일 : " + targetMember.getQuitDate());
+//		
+//		Assert.assertNotNull(targetMember);
+//		Assert.assertNotEquals(sqlDate, targetMember.getQuitDate());
+//		
+//		targetMember.setQuitDate(sqlDate);
 //		memberDAO.deleteMember(targetMember);
-		
-		MemberVO getMember = memberDAO.selectMemberById(testId);
-		
-		System.out.println("get 탈퇴일 : " + getMember.getQuitDate());
-		
-		Assert.assertEquals(sqlDate, getMember.getQuitDate());
+//		
+//		MemberVO getMember = memberDAO.selectMemberById(testId);
+//		
+//		System.out.println("get 탈퇴일 : " + getMember.getQuitDate());
+//		
+//		Assert.assertEquals(sqlDate, getMember.getQuitDate());
 	}
 }
