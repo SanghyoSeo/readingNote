@@ -49,6 +49,7 @@
 	cursor: pointer;
 }
 </style>
+<script src="<%=request.getContextPath() %>/resources/js/common.js"></script>
 </head>
 <body>
 	<div id="title">리딩노트</div>
@@ -63,20 +64,17 @@
 	</div>
 	</div>
 	<div style="text-align: center;">
-		<span class="bottom_btn" onclick="">비밀번호 찾기</span>
+		<span class="bottom_btn" onclick="javascript:OpenWindow('searchPwd', '비밀번호 찾기', '500', '500')">비밀번호 찾기</span>
 		<span class="bottom_btn">|</span>
-		<span class="bottom_btn" onclick="">아이디 찾기</span>
+		<span class="bottom_btn" onclick="javascript:OpenWindow('searchId', '아이디 찾기', '500', '500')">아이디 찾기</span>
 		<span class="bottom_btn">|</span>
 		<span class="bottom_btn" onclick="">회원가입</span>
 	</div>
 
+<c:if test="${not empty message }" >
 <script>
-	<c:if test="${param.error eq 1}">
-	alert("아이디가 일치하지 않습니다.");
-	</c:if>
-	<c:if test="${param.error eq 2}">
-	alert("패스워드가 일치하지 않습니다.");
-	</c:if>
+	alert("${message}");
 </script>
+</c:if> 
 </body>
 </html>

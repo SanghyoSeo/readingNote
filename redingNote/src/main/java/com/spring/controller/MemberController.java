@@ -214,4 +214,64 @@ public class MemberController {
 		return mnv;
 	}
 
+	@GetMapping("/commons/searchPwd")
+	public ModelAndView searchPwd(ModelAndView mnv) {
+		String url = "/commons/searchPwd";
+		
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	
+	@PostMapping("/commons/searchPwd")
+	public ModelAndView searchPwd(String id, String name, String email, 
+								  ModelAndView mnv, HttpSession session) throws SQLException {
+		
+		String url = "redirect:/commons/searchPwd?success=1";
+		
+		MemberVO member = memberDAO.selectMemberById(id);
+
+		
+		if (member != null && id.equals(member.getId()) 
+				&& name.equals(member.getName()) && email.equals(member.getEmail())) {
+			
+			String searchPwd = memberDAO.selectSearchPwd(member);
+			mnv.addObject("searchPwd", searchPwd);
+		} else {
+			url = "redirect:/commons/searchPwd?error=1";
+		}
+		
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	
+	@GetMapping("/commons/searchId")
+	public ModelAndView searchId(ModelAndView mnv) {
+		String url = "/commons/searchId";
+		
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
+	
+	@PostMapping("/commons/searchId")
+	public ModelAndView searchId(String email, ModelAndView mnv, HttpSession session, 
+								 RedirectAttributes rttr) throws SQLException {
+		
+		String url = "redirect:/commons/searchId?success=1";
+		String searchEmail = memberDAO.selectSearchId(email);
+		
+		System.out.println(searchEmail);
+		
+		if (searchEmail != null) {
+			mnv.addObject("searchEmail", searchEmail);
+		} else {
+			url = "redirect:/commons/searchId?error=1";
+		}
+		
+		mnv.setViewName(url);
+		
+		return mnv;
+	}
 }
