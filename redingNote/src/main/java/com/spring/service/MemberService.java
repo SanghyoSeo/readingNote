@@ -17,4 +17,5 @@ public interface MemberService {
 	void modifyName(MemberVO member) throws SQLException;
 	void modifyEmail(MemberVO member) throws SQLException;
 	void remove(MemberVO member) throws SQLException;
+	
 }

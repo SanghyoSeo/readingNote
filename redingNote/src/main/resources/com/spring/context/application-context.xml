@@ -15,4 +15,5 @@
 		  class="com.spring.service.MemberServiceImpl"
 		  p:memberDAO-ref="memberDAO"
 		  />
+		  
 </beans>

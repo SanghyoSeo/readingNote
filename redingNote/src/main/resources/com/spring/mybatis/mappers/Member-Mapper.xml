@@ -7,11 +7,12 @@
 	<select id="selectMemberList" resultType="member">
 		select * from member
 	</select>
-	
+
 	<select id="selectMyReviewList" resultType="member">
 		select m.id, b.book_title, r.review_contents, r.review_date
 		from member m, book_review r, book b
 		where m.id = #{id} and r.book_review_writer_id = m.id and r.review_book_id = b.book_id
+		order by r.review_date desc
 	</select>
 	
 	<select id="selectMyReviewListCount" resultType="int">

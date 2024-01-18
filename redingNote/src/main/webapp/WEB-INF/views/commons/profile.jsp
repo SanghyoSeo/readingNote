@@ -109,6 +109,8 @@ hr {
 		</div>
 	</div>
 	<div onclick="javascript:OpenWindow('myReviewList', '내 리뷰 목록', 600, 500)">내 리뷰 목록</div>
+	
+	
 <script>
 function goPage(form, name) {
 	let newForm = document.getElementById(form);

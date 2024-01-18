@@ -25,7 +25,7 @@ public class MemberController {
 	
 	@Autowired
 	private MemberDAO memberDAO;
-
+	
 	@GetMapping("/commons/login")
 	public ModelAndView login(ModelAndView mnv) {
 		String url = "/commons/login";
@@ -205,14 +205,6 @@ public class MemberController {
 		return mnv;
 	}
 	
-	@GetMapping("/commons/myReviewList")
-	public ModelAndView remove(ModelAndView mnv) throws Exception {
-		String url = "/commons/myReviewList";
-		
-		mnv.setViewName(url);
-		
-		return mnv;
-	}
 
 	@GetMapping("/commons/searchPwd")
 	public ModelAndView searchPwd(ModelAndView mnv) {
@@ -274,4 +266,5 @@ public class MemberController {
 		
 		return mnv;
 	}
+	
 }
